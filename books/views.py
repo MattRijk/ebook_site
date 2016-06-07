@@ -21,33 +21,52 @@ class BookListView(ListView):
 #         context['authors'] = context.authors.all()
 #         return context
 
+class BookDetailView(DetailView): 
+    Model = Book
+    template_name = 'books/book_detail.html'
+    context_name = 'book'
     
-
-     
-class BookDetailView(View): 
-     
-    def get(self, request, slug=None, *args, **kwargs):
-        template = 'books/book_detail.html'
-        authors = None
-        category = None
-        
-        try:
-            book = get_object_or_404(Book, slug=slug)
-                     
-        except Book.MultipleObjectsReturned:
-            book = Book.objects.filter(slug=slug)
-
-        # authors
-        queryset = Book.objects.get(slug=slug)
-        authors = queryset.authors.all()
-        
-        # Book's category
-        qset = Book.objects.get(slug=slug)
-        category = qset.category_set.all()
-       
-        context = {'book': book, 'authors': authors, 'category': category}
-       
-        return render(request, template, context)
+    def get_object(self, *args, **kwargs):
+        slug = self.kwargs.get('slug')
+        if slug is not None:
+            try:
+                book = get_object_or_404(Book, slug=slug)
+            except Book.MultipleObjectsReturned:
+                book = Book.objects.filter(slug=slug).order_by('-title').first()
+        else:
+            book = super(BookDetailView, self).get_object(*args, **kwargs)
+        return book
+    
+    
+# class BookDetailView(View):
+#     def get(self, request, slug=None, *args, **kwargs):
+#         book = get_object_or_404(Book, slug=slug)
+#         return render(request, 'books/book_detail.html', {'book':book})
+    
+# class BookDetailView(View): 
+#      
+#     def get(self, request, slug=None, *args, **kwargs):
+#         template = 'books/book_detail.html'
+#         authors = None
+#         category = None
+#         
+#         try:
+#             book = get_object_or_404(Book, slug=slug)
+#                      
+#         except Book.MultipleObjectsReturned:
+#             book = Book.objects.filter(slug=slug)
+# 
+#         # authors
+#         queryset = Book.objects.get(slug=slug)
+#         authors = queryset.authors.all()
+#         
+#         # Book's category
+#         qset = Book.objects.get(slug=slug)
+#         category = qset.category_set.all()
+#        
+#         context = {'book': book, 'authors': authors, 'category': category}
+#        
+#         return render(request, template, context)
   
   
 class AuthorView(View):       

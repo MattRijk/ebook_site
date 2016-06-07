@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 
@@ -37,6 +38,11 @@ class Book(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
             super(Book, self).save(*args, **kwargs)
+            
+    
+    def get_absolute_url(self):
+        return reverse('books:detail_view', kwargs={'slug': self.slug})
+
     
 class Category(models.Model):
     title = models.CharField(max_length=50)

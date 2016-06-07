@@ -4,33 +4,16 @@
 
 {% block content %}
 
-<h3>{{ book.title }}</h3>
-<section>
-<img src="{{ book.image.url }}" height="150" width="110" />
-<p>
-Author:
-{% for author in authors %}
-<a href="{% url 'books:author_view' author.slug %}">{{ author.name }}</a>
-
-{% endfor %}
-</p>
-
-<p>Length: {{ book.pages }}</p>
-
-<p>File size: {{ book.filesize }} </p>
-
-<p>File format: {{ book.file_format }} </p>
-
-<p>Category: 
-{% for c in category %}
-<a href="{% url 'books:category_detail' c.slug %}">{{ c.title }}</a>
-{% endfor %}
-</p>
+<p>{{ book.title }}</p>
+<h5>Published: {{ book.year }}</h5>
+<h5>Pages: {{ book.pages }}</h5>
+<h5>Filesize: {{ book.filesize }}</h5>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
 
 
-<p><a href="{{ book.pdf.url }}" target="_blank">Download eBook PDF</a></p>
 
-<embed src="{{ book.pdf.url }}" width="600" height="500" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
-
-</section>
 {% endblock %}
