@@ -68,14 +68,29 @@ class BookDetailView(DetailView):
 #        
 #         return render(request, template, context)
   
-  
-class AuthorView(View):       
-    def get(self, request, slug=None, *args, **kwargs):
-        template = 'books/author_list.html'
-        author = Author.objects.get(slug=slug)
-        queryset = author.book_set.all()
-        context = {'authorbooks': queryset, 'author': author}
-        return render(request, template, context)
+class AuthorDetailView(DetailView):    
+    Model = Author
+    template_name = 'books/author_list.html'
+    context_name = 'author'
+    
+    def get_object(self, *args, **kwargs):
+        slug = self.kwargs.get('slug')
+        if slug is not None:
+            try:
+                author = get_object_or_404(Author, slug=slug)
+            except Author.MultipleObjectsReturned:
+                author = Author.objects.filter(slug=slug).order_by('-name').first()
+        else:
+            author = super(AuthorDetailView, self).get_object(*args, **kwargs)
+        return author
+    
+# class AuthorView(View):       
+#     def get(self, request, slug=None, *args, **kwargs):
+#         template = 'books/author_list.html'
+#         author = Author.objects.get(slug=slug)
+#         queryset = author.book_set.all()
+#         context = {'authorbooks': queryset, 'author': author}
+#         return render(request, template, context)
  
     
 class CategoryBookView(View):

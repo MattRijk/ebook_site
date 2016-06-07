@@ -5,6 +5,13 @@
 {% block content %}
 
 <p>{{ book.title }}</p>
+{% comment %}  AUTHORS {% endcomment %}
+{% for author in book.authors.all %}
+<h5>{{ author.name }}</h5>
+{#<a href="{% url 'books:author_list' author.slug %}">{{ author.slug }}</a>#}
+{% endfor %}
+
+
 <h5>Published: {{ book.year }}</h5>
 <h5>Pages: {{ book.pages }}</h5>
 <h5>Filesize: {{ book.filesize }}</h5>
