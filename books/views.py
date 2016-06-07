@@ -15,10 +15,11 @@ class BookListView(ListView):
     context_object_name = 'books_list'
     queryset = Book.objects.all()
 
-    def get_context_data(self, **kwargs):
-        context = super(BookListView, self).get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super(BookListView, self).get_context_data(**kwargs)
+#          
+#         context['authors'] = context.authors.all()
+#         return context
 
     
 
@@ -49,8 +50,7 @@ class BookDetailView(View):
         return render(request, template, context)
   
   
-class AuthorView(View): 
-      
+class AuthorView(View):       
     def get(self, request, slug=None, *args, **kwargs):
         template = 'books/author_list.html'
         author = Author.objects.get(slug=slug)
@@ -69,7 +69,7 @@ class CategoryBookView(View):
     
     
 class DataFormView(FormView):
-    template_name = 'books/csv_upload.html'
+    template_name = 'help/csv_upload.html'
     form_class = DataForm
     success_url = 'books/book_list.html'
 
