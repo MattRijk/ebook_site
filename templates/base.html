@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+<link rel="stylesheet" href="{% static 'css/flexbox.css' %}">
+
+<script src="{% static 'js/modernizr.custom.js'%}"></script>
+<script src="{% static 'http://use.edgefonts.net/lato.js'%}"></script>
+<script src="{% static 'http://use.edgefonts.net/cardo.js'%}"></script>
+
+<title>Finance eBooks</title>
+</head>
+<body>
+
+<nav role="navigation">
+<ul>
+  <li><a href="articles.htm" title="Articles">Stock Investing</a></li>
+  <li><a href="newsletter.htm" title="Newsletter">Quant Finance</a></li>
+  <li><a href="interest.htm" title="generic interest">Finance</a></li>
+  <li><a href="about.htm" title="learn more about me">Real Estate Investing</a></li>
+  <li><a href="about.htm" title="learn more about me">Help</a></li>
+  <li class="search-form"><form action="http://simplerpimate.com" method="post">
+    <label for="search">Search Generic Blog</label>
+    <input type="search" placeholder="search" title="Search" class="q" name="search" id="search">
+    <input type="submit" class="button" value="Go" name="submit">
+  </form></li>
+  </ul>
+</nav>
+
+<header class='call'><p>Finance eBooks</p></header>
+<section role="main" class="main">
+
+{% block content %}{% endblock %}
+
+
+<aside role="complementary" class="sidebar">
+<section class="intro">
+<p><span class="call">Welcome</span></p>
+<blockquote><em>Finance ebooks seeks to keep a library of books to help people better understand the world of finance and investing. </em></blockquote> 
+</section>
+
+
+<section class="events"></section>
+</aside>
+</section>
+
+
+<footer role="contentinfo">
+<!--  <p>Site content is unlicensed.</p> -->
+</footer>
+
+
+</body>
+</html>
