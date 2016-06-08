@@ -73,6 +73,20 @@ class BookListViewTests(TestCase):
         author= resolve('/author/scott-meyer/')
         self.assertEqual(author.kwargs['slug'], 'scott-meyer')
         
+    def test_author_url(self):
+        author = Author.objects.create(name = 'Scott Meyer')
+        image = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.jpg', mode="rb"))
+        pdf = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.pdf', mode="rb"))
+        book =  Book.objects.create(title='Corporate Finance', pages='272', image=image, pdf=pdf, year='2003', filesize='1.62 MB', file_format='PDF')
+         
+        BookHasAuthor.objects.create(book=book, author=author)
+        response = self.client.get('/author/%s/' % (author.slug,))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'books/author_books.html')
+        
+        
+    
+        
 class BookDetailViewTest(TestCase):
     
     def book_detail_page(self):
