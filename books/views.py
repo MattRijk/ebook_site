@@ -13,12 +13,14 @@ class BookListView(ListView):
     Model = Book
     template_name = 'books/book_list.html'
     context_object_name = 'books_list'
-    queryset = Book.objects.all()
+    
+    def get_queryset(self):
+        return Book.objects.all()
 
 #     def get_context_data(self, **kwargs):
 #         context = super(BookListView, self).get_context_data(**kwargs)
-#          
-#         context['authors'] = context.authors.all()
+#           
+#         context[''] = Book.objects.all()
 #         return context
 
 class BookDetailView(DetailView): 
