@@ -7,7 +7,7 @@
 <p>{{ book.title }}</p>
 {% comment %}  AUTHORS {% endcomment %}
 {% for author in book.authors.all %}
-<h5>{{ author.name }}</h5>
+{{ author.name }},&nbsp
 {#<a href="{% url 'books:author_list' author.slug %}">{{ author.slug }}</a>#}
 {% endfor %}
 
