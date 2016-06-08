@@ -5,10 +5,11 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from books import urls as books_urls
+from books.views import BookListView
 
 urlpatterns = [
-    url(r'^books/', include(books_urls, namespace='books')),     
-#     url(r'^$', include(books_urls, namespace='books')),      
+    url(r'^', include(books_urls, namespace='books')),     
+    url(r'^$', BookListView.as_view(), name='index'),      
     url(r'^admin/', include(admin.site.urls)),
 ] 
 

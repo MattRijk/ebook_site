@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+ {% for book in books_list %}
+ <div class="Media">
+ <a href="{{ book.get_absolute_url }}">
+  <img class="Media-figure" src="{{ book.image.url }}" alt="" width="100" height="100" >
+ </a>
+  <div class="Media-body">
+	  <h4 class="Media-title">
+	  <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+
+	  </h4>
+	  {% for author in book.authors.all %}
+	  <a href={% url "books:author_view" author.slug %}>{{ author.name }}</a>&nbsp 
+	  {% endfor %}
+	   
+	  <p>{{ book.year }}</p>
+ </div>
+</div>
+<hr>
+{% endfor %}
+ 
+
+
+
+
+{% endblock %}

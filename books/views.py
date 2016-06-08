@@ -6,22 +6,18 @@ from django.views.generic.list import ListView
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 from books.forms import DataForm
+from django.utils.text import slugify
     
 
     
 class BookListView(ListView):
     Model = Book
-    template_name = 'books/book_list.html'
+    template_name = 'books/index.html'
     context_object_name = 'books_list'
     
     def get_queryset(self):
         return Book.objects.all()
 
-#     def get_context_data(self, **kwargs):
-#         context = super(BookListView, self).get_context_data(**kwargs)
-#           
-#         context[''] = Book.objects.all()
-#         return context
 
 class BookDetailView(DetailView): 
     Model = Book
@@ -39,41 +35,11 @@ class BookDetailView(DetailView):
             book = super(BookDetailView, self).get_object(*args, **kwargs)
         return book
     
-    
-# class BookDetailView(View):
-#     def get(self, request, slug=None, *args, **kwargs):
-#         book = get_object_or_404(Book, slug=slug)
-#         return render(request, 'books/book_detail.html', {'book':book})
-    
-# class BookDetailView(View): 
-#      
-#     def get(self, request, slug=None, *args, **kwargs):
-#         template = 'books/book_detail.html'
-#         authors = None
-#         category = None
-#         
-#         try:
-#             book = get_object_or_404(Book, slug=slug)
-#                      
-#         except Book.MultipleObjectsReturned:
-#             book = Book.objects.filter(slug=slug)
-# 
-#         # authors
-#         queryset = Book.objects.get(slug=slug)
-#         authors = queryset.authors.all()
-#         
-#         # Book's category
-#         qset = Book.objects.get(slug=slug)
-#         category = qset.category_set.all()
-#        
-#         context = {'book': book, 'authors': authors, 'category': category}
-#        
-#         return render(request, template, context)
   
 class AuthorDetailView(DetailView):    
     Model = Author
-    template_name = 'books/author_list.html'
-    context_name = 'author'
+    template_name = 'books/author_books.html'
+    context_object_name = 'author'
     
     def get_object(self, *args, **kwargs):
         slug = self.kwargs.get('slug')
@@ -86,13 +52,11 @@ class AuthorDetailView(DetailView):
             author = super(AuthorDetailView, self).get_object(*args, **kwargs)
         return author
     
-# class AuthorView(View):       
-#     def get(self, request, slug=None, *args, **kwargs):
-#         template = 'books/author_list.html'
+#     def get_queryset(self, slug=None, **kwargs):
 #         author = Author.objects.get(slug=slug)
-#         queryset = author.book_set.all()
-#         context = {'authorbooks': queryset, 'author': author}
-#         return render(request, template, context)
+#         return author.
+    
+
  
     
 class CategoryBookView(View):

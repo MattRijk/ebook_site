@@ -1,12 +1,15 @@
 from django.test import TestCase
-from books.models import Book, Author, BookHasAuthor
 from django.core.files import File
+from django.core.urlresolvers import reverse, resolve
+from books.models import Book, Author, BookHasAuthor
 
 
-class ProjectTests(TestCase):
+
+
+class BookListViewTests(TestCase):
 
     def test_homepage(self):
-        response = self.client.get('/books/')
+        response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         
     def test_one_book(self):
@@ -14,7 +17,7 @@ class ProjectTests(TestCase):
         image = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.jpg', mode="rb"))
         pdf = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.pdf', mode="rb"))
         Book.objects.create(title='Corporate Finance', pages='272', image=image, pdf=pdf, year='2003', filesize='1.62 MB', file_format='PDF')
-        response = self.client.get('/books/')
+        response = self.client.get('/')
         self.assertContains(response, 'Corporate Finance')
         self.assertContains(response, '2003')
         
@@ -39,7 +42,7 @@ class ProjectTests(TestCase):
         jose = BookHasAuthor.objects.create(book=b2, author=a4)
         scott = BookHasAuthor.objects.create(book=b2, author=a1)
         
-        response = self.client.get('/books/')
+        response = self.client.get('/')
 
         self.assertContains(response, 'Corporate Finance')
         self.assertContains(response, '2003')
@@ -51,6 +54,37 @@ class ProjectTests(TestCase):
         self.assertContains(response, 'Jennifer Rose')
         self.assertContains(response, 'Jose Rogers')
         self.assertContains(response, 'Scott Meyer')
+        
+    def test_book_get_absolute_url(self):
+        image = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.jpg', mode="rb"))
+        pdf = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.pdf', mode="rb"))
+        book =  Book.objects.create(title='Corporate Finance', pages='272', image=image, pdf=pdf, year='2003', filesize='1.62 MB', file_format='PDF')
+        response = self.client.get(book.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+        
+    def test_author_get__url(self):
+        author = Author.objects.create(name = 'Scott Meyer')
+        image = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.jpg', mode="rb"))
+        pdf = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.pdf', mode="rb"))
+        book =  Book.objects.create(title='Corporate Finance', pages='272', image=image, pdf=pdf, year='2003', filesize='1.62 MB', file_format='PDF')
+         
+        BookHasAuthor.objects.create(book=book, author=author)
+#          response = self.client.get('author/%s/' % author.slug)
+        author= resolve('/author/scott-meyer/')
+        self.assertEqual(author.kwargs['slug'], 'scott-meyer')
+        
+class BookDetailViewTest(TestCase):
+    
+    def book_detail_page(self):
+        image = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.jpg', mode="rb"))
+        pdf = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.pdf', mode="rb"))
+        book =  Book.objects.create(title='Corporate Finance', pages='272', image=image, pdf=pdf, year='2003', filesize='1.62 MB', file_format='PDF')
+        response = self.client.get(book.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+    
+
+         
+        
    
         
  
