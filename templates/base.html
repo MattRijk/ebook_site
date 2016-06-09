@@ -18,22 +18,7 @@
 
 </head>
 <body>
-
-<nav role="navigation">
-<ul>
-  <li><a href="{% url 'index' %}" title="Recent">Recent eBooks</a></li>
-  <li><a href="" title="Articles">Stock Investing</a></li>
-  <li><a href="" title="Newsletter">Quant Finance</a></li>
-  <li><a href="" title="generic interest">Finance</a></li>
-  <li><a href="" title="learn more about me">Real Estate Investing</a></li>
-  <li><a href="" title="learn more about me">Help</a></li>
-  <li class="search-form"><form action="http://simplerpimate.com" method="post">
-    <label for="search">Search Generic Blog</label>
-    <input type="search" placeholder="search" title="Search" class="q" name="search" id="search">
-    <input type="submit" class="button" value="Go" name="submit">
-  </form></li>
-  </ul>
-</nav>
+{% block nav %}{% endblock %}
 <header role="banner">
 <hgroup>
 <h1>Finance<span class="generic"> eBooks</span></h1>
@@ -50,7 +35,6 @@
 <span class="call">Welcome</span></p>
 </section>
 <ul class="social">
-
 </ul>
 <section class="newsletter cf">
 <h3>Our Newsletter</h3>

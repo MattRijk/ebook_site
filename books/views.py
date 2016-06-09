@@ -17,6 +17,12 @@ class BookListView(ListView):
     
     def get_queryset(self):
         return Book.objects.all()
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super(BookListView, self).get_context_data(*args, **kwargs)
+        context['categories'] = Category.objects.all()
+        return context 
+        
 
 
 class BookDetailView(DetailView): 
@@ -52,22 +58,34 @@ class AuthorDetailView(DetailView):
             author = super(AuthorDetailView, self).get_object(*args, **kwargs)
         return author
     
-#     def get_queryset(self, slug=None, **kwargs):
-#         author = Author.objects.get(slug=slug)
-#         return author.
+    
+class CategoryDetailView(DetailView):
+    Model = Category
+    template_name = 'books/book_category.html'
+    context_object_name = 'category'
+      
+    def get_object(self, *args, **kwargs):
+        slug = self.kwargs.get('slug')
+        if slug is not None:
+            try:
+                category = get_object_or_404(Category, slug=slug)
+            except Category.MultipleObjectsReturned:
+                category = Category.objects.filter(slug=slug).order_by('-title').first()
+        else:
+            category = super(CategoryDetailView, self).get_object(*args, **kwargs)
+        return category
+#     
+    
+# class CategoryListView(ListView):
+#     Model = Category
+#     template_name = 'books/index.html'
+#     context_object_name = 'categories'
+#     
+#     def get_queryset(self):
+#         return Category.objects.all()
     
 
- 
-    
-class CategoryBookView(View):
-    def get(self, request, slug=None, *args, **kwargs):
-        template = 'categories/category_book_list.html'
-        category = Category.objects.get(slug=slug)
-        queryset = category.books.all()
-        context = {'category':queryset, 'category_name': category}
-        return render(request, template, context)
-    
-    
+
 class DataFormView(FormView):
     template_name = 'help/csv_upload.html'
     form_class = DataForm

@@ -9,7 +9,7 @@ from books.views import BookListView
 
 urlpatterns = [
     url(r'^', include(books_urls, namespace='books')),     
-    url(r'^$', BookListView.as_view(), name='index'),      
+    url(r'^$', BookListView.as_view(), name='home'),      
     url(r'^admin/', include(admin.site.urls)),
 ] 
 

@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, testcases
 from django.core.files import File
 from django.core.urlresolvers import reverse, resolve
 from books.models import Book, Author, BookHasAuthor
@@ -95,7 +95,10 @@ class BookDetailViewTest(TestCase):
         book =  Book.objects.create(title='Corporate Finance', pages='272', image=image, pdf=pdf, year='2003', filesize='1.62 MB', file_format='PDF')
         response = self.client.get(book.get_absolute_url())
         self.assertEqual(response.status_code, 200)
-    
+
+
+class CategoryListTest(TestCase):
+    pass
 
          
         

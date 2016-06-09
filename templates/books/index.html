@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block content %}
+{% block nav %}
+<nav role="navigation">
+<ul>
+  <li><a href="{% url 'home' %}" title="Recent">Recent eBooks</a></li>
+{% for category in categories %}
+  <li><a href="{% url 'books:book_category' category.slug %}" title="Articles">{{ category.title }}</a></li>
+{% endfor %}
+  <li><a href="" title="learn more about me">Help</a></li>
+  <li class="search-form"><form action="http://simplerpimate.com" method="post">
+    <label for="search">Search Generic Blog</label>
+    <input type="search" placeholder="search" title="Search" class="q" name="search" id="search">
+    <input type="submit" class="button" value="Go" name="submit">
+  </form></li>
+  </ul>
+</nav>
+{% endblock %}
+
 
  {% for book in books_list %}
  <div class="Media">
@@ -21,10 +37,12 @@
  </div>
 </div>
 <hr>
-{% endfor %}
+{% endfor %} 
+
+
+
  
 
 
 
 
-{% endblock %}
