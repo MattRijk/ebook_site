@@ -1,7 +1,9 @@
 from django.test import TestCase, testcases
 from django.core.files import File
+from django.template import Template, Context
 from django.core.urlresolvers import reverse, resolve
-from books.models import Book, Author, BookHasAuthor
+from books.models import Book, Author, BookHasAuthor, Category
+from books.templatetags import navtags
 
 
 
@@ -85,8 +87,6 @@ class BookListViewTests(TestCase):
         self.assertTemplateUsed(response, 'books/author_books.html')
         
         
-    
-        
 class BookDetailViewTest(TestCase):
     
     def book_detail_page(self):
@@ -97,11 +97,20 @@ class BookDetailViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class CategoryListTest(TestCase):
+class CategoryNavTagTest(TestCase):
+    TEMPLATE = Template("{% load navtags %} {% get_nav as categories %}")
+
+    def test_category_shows_up(self):
+        category = Category.objects.create(title="Stock Trading")
+        categories = navtags.get_nav()
+        rendered = [category.title for category in categories]
+        self.assertIn(category.title, rendered)
+        
+class CategoryDetailViewTest(TestCase):
     pass
 
          
-        
+       
    
         
  
