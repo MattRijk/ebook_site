@@ -1,4 +1,4 @@
-from django.test import TestCase, testcases
+from django.test import TestCase
 from django.core.files import File
 from django.template import Template, Context
 from django.core.urlresolvers import reverse, resolve
@@ -112,8 +112,7 @@ class CategoryDetailViewTest(TestCase):
     
     # returns category slug kwargs 
     def test_category_url_with_slug(self):
- 
-              
+     
         category = Category.objects.create(title='Stock Investing')
         image = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.jpg', mode="rb"))
         pdf = File(open(r'C:\Users\matt\Desktop\temp\corporate_finance_theory_and_practice.pdf', mode="rb"))

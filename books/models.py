@@ -15,8 +15,6 @@ class Author(models.Model):
             self.slug = slugify(self.name)
             super(Author, self).save(*args, **kwargs) 
             
-    def get_absolute_url(self):
-        return reverse('books:author_list', kwargs={'slug': self.slug})
     
 
 class Book(models.Model):
