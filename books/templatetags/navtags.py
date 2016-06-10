@@ -1,10 +1,13 @@
-#my_tags.py
 from django import template
+from django.template import Context
 from books.models import Category
 
 register = template.Library()
 
-@register.inclusion_tag('nav.html')
-def get_nav_tag():
-    categories = Category.objects.all()
-    return {'categories' : categories}
+
+
+# @register.inclusion_tag('nav.html')
+@ register.assignment_tag
+def get_nav():
+    queryset = Category.objects.all()
+    return queryset

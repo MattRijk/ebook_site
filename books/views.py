@@ -12,17 +12,17 @@ from django.utils.text import slugify
     
 class BookListView(ListView):
     Model = Book
-    template_name = 'books/index.html'
+    template_name = 'base.html'
     context_object_name = 'books_list'
     
     def get_queryset(self):
         return Book.objects.all()
     
-    def get_context_data(self, *args, **kwargs):
-        context = super(BookListView, self).get_context_data(*args, **kwargs)
-        context['categories'] = Category.objects.all()
-        return context 
-        
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(BookListView, self).get_context_data(*args, **kwargs)
+#         context['categories'] = Category.objects.all()
+#         return context 
+#         
 
 
 class BookDetailView(DetailView): 
@@ -76,13 +76,13 @@ class CategoryDetailView(DetailView):
         return category
 #     
     
-# class CategoryListView(ListView):
-#     Model = Category
-#     template_name = 'books/index.html'
-#     context_object_name = 'categories'
-#     
-#     def get_queryset(self):
-#         return Category.objects.all()
+class CategoryListView(ListView):
+    Model = Category
+    template_name = 'nav.html'
+    context_object_name = 'categories'
+      
+    def get_queryset(self):
+        return Category.objects.all()
     
 
 

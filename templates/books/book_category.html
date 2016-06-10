@@ -1,21 +1,10 @@
 {% extends 'base.html' %}
-{% load navtags %}
-
-
-{% block nav %}
-{% get_nav_tag %}
-{% endblock %}
-
-
 
 
 {% block content %}
-<p>Hello from book category </p>
 <h2>{{ category.title }} Books</h2>
 {% for book in category.books.all %}
-	{{ book.title }}
+	<p>{{ book.title }}</p>
 {% endfor %}
-
-
 
 {% endblock %}
