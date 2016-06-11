@@ -69,7 +69,9 @@ class CategoryDetailView(DetailView):
         else:
             category = super(CategoryDetailView, self).get_object(*args, **kwargs)
         return category
-#     
+     
+
+    
     
 class CategoryListView(ListView):
     Model = Category

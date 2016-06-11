@@ -2,19 +2,29 @@
 
 {% block content %}
 
-<h3>Books by: {{ author.name }}</h3>
+<p>Books by: {{ author.name }}</p>
 
 {% for book in author.book_set.all %}
-<p>
-<a href="{{ book.get_absolute_url }}">
-	<img src="{{ book.image.url }}" width="100px" height="100px">
-	<a href="{{ book.get_absolute_url }}">&nbsp{{ book.title }}</a>
-	</img>
-</a>
-</p>
+<div class="Media">
+ <a href="{{ book.get_absolute_url }}">
+  <img class="Media-figure" src="{{ book.image.url }}" alt="" width="100" height="100" >
+ </a>
+  <div class="Media-body">
+	  <p class="Media-title">
+	  <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+	  </p>
+	  <p class="Media-title">
+	  {% for author in book.authors.all %}
+	  
+	  <a href={% url "books:author_view" author.slug %}>{{ author.name }}</a>&nbsp 
+	  
+	  {% endfor %}
+	  </p>
+	  <p>{{ book.year }}</p>
+ </div>
+</div>
+<hr>
 
-{#<img src="{{ book.image.url }} "height="150" width="110" />#}
-{#<a href="{% url 'books:detail_view' book.slug %}">{{ book.title }}</a><br />#}
 
 {% endfor %}
 
