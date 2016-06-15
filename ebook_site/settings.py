@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 #     'debug_toolbar',
     'django_extensions',
+    'haystack',
     'books',
 )
 MIDDLEWARE_CLASSES = (
@@ -69,6 +70,13 @@ TEMPLATES = [
         },
     },
 ]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/ebooks'
+    },
+}
 
 WSGI_APPLICATION = 'ebook_site.wsgi.application'
 
