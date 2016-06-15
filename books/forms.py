@@ -11,7 +11,6 @@ class SearchForm(forms.Form):
     query = forms.CharField()
 
 
-
 class DataForm(forms.Form):
     data_file = forms.FileField()
 

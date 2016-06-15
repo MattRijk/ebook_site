@@ -9,6 +9,7 @@ from books.forms import DataForm
 from django.utils.text import slugify
 from .forms import SearchForm
 from haystack.query import SearchQuerySet
+from pip._vendor.requests.api import request
 
 
 def book_search(request):
@@ -27,15 +28,40 @@ def book_search(request):
     return render(request, 'books/search.html', {'form': form,
                                                  'cd': cd,
                                                  'results': results,
+   
+                                                 
                                                  'total_results': total_results})
     
 class BookListView(ListView):
-    Model = Book
-    template_name = 'books/index.html'
-    context_object_name = 'books_list'
     
-    def get_queryset(self):
-        return Book.objects.all()
+    def get(self, request, *args, **kwargs):
+        cd = None
+        results = None
+        total_results = None
+        
+        queryset = Book.objects.all()
+        
+        form = SearchForm()
+        if 'query' in request.GET:
+            form = SearchForm(request.GET)
+            if form.is_valid():
+                cd = form.cleaned_data
+                results = SearchQuerySet().models(Book).filter(content=cd['query']).load_all()
+                # count total results
+                total_results = results.count()
+        return render(request, 'books/search.html', {'books_list': queryset, 
+                                                     'form': form,
+                                                     'cd': cd,
+                                                     'results': results,
+                                                     'total_results': total_results})
+
+# class BookListView(ListView):
+#     Model = Book
+#     template_name = 'books/index.html'
+#     context_object_name = 'books_list'
+#     
+#     def get_queryset(self):
+#         return Book.objects.all()
  
 
 

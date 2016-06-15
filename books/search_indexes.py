@@ -5,7 +5,7 @@ from .models import Book, Category
 class BookIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     year = indexes.CharField(model_attr='year')
-#     authors = indexes.CharField(model_attr='authors')
+
         
     def get_model(self):
         return Book

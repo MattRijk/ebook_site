@@ -28,11 +28,18 @@
   <li><a href="{% url 'books:book_category' category.slug %}" title="Articles">{{ category.title }}</a></li>
 {% endfor %}
   <li><a href="" title="learn more about me">Help</a></li>
-  <li class="search-form"><form action="http://simplerpimate.com" method="post">
+  
+  
+  <li class="search-form">
+  {% comment %}  Search form {% endcomment %}
+  <form action="." method="get">
     <label for="search">Search Generic Blog</label>
-    <input type="search" placeholder="search" title="Search" class="q" name="search" id="search">
+    {{ form.as_p }}
+{#    <input type="search" placeholder="search" title="Search" class="q" name="search" id="search">#}
     <input type="submit" class="button" value="Go" name="submit">
-  </form></li>
+  </form>
+  {% comment %}  Search form {% endcomment %}
+  </li>
 </ul>
 </nav>
 <!-- end -->
