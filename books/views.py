@@ -7,8 +7,27 @@ from django.views.generic.base import View
 from django.views.generic.edit import FormView
 from books.forms import DataForm
 from django.utils.text import slugify
-    
+from .forms import SearchForm
+from haystack.query import SearchQuerySet
 
+
+def book_search(request):
+    cd = None
+    results = None
+    total_results = None
+    
+    form = SearchForm()
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            cd = form.cleaned_data
+            results = SearchQuerySet().models(Book).filter(content=cd['query']).load_all()
+            # count total results
+            total_results = results.count()
+    return render(request, 'books/search.html', {'form': form,
+                                                 'cd': cd,
+                                                 'results': results,
+                                                 'total_results': total_results})
     
 class BookListView(ListView):
     Model = Book

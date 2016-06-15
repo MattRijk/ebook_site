@@ -7,6 +7,11 @@ from django import forms
 from books.models import Category, Author, Book, BookHasCategory, BookHasAuthor
 
 
+class SearchForm(forms.Form):
+    query = forms.CharField()
+
+
+
 class DataForm(forms.Form):
     data_file = forms.FileField()
 
