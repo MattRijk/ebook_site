@@ -23,72 +23,23 @@
 <nav role="navigation">
 {% get_nav as categories %}
 <ul>
-  <li><a href="{% url 'home' %}" title="Recent">Recent eBooks</a></li>
+  <li><a href="{% url 'home' %}" title="Recent">All eBooks</a></li>
 {% for category in categories %}
   <li><a href="{% url 'books:book_category' category.slug %}" title="Articles">{{ category.title }}</a></li>
 {% endfor %}
   <li><a href="" title="learn more about me">Help</a></li>
   
-  
-  <li class="search-form">
-  {% comment %}  Search form {% endcomment %}
-  <form action="." method="get">
-    <label for="search">Search Generic Blog</label>
-    {{ form.as_p }}
-{#    <input type="search" placeholder="search" title="Search" class="q" name="search" id="search">#}
-    <input type="submit" class="button" value="Go" name="submit">
-  </form>
-  {% comment %}  Search form {% endcomment %}
-  </li>
 </ul>
 </nav>
 <!-- end -->
-<header role="banner">
-<hgroup>
-<h1>Finance<span class="generic"> eBooks</span></h1>
-<h2>A library of financial books</h2>
-</hgroup>
-</header>
-<section role="main" class="main">
-<article class="featured">
+
 {% block content %}
 {% endblock %}
-</article>
-<aside role="complementary" class="sidebar">
-<section class="intro">
-<p>Generic Blog seeks to keep you up to date on the most generic items out there. We want to be your main source for all generic interests and actvities.  
-<span class="call">Welcome</span></p>
-</section>
-<ul class="social">
-</ul>
-<section class="newsletter cf">
-<h3>Our Newsletter</h3>
-</section>
-<section class="events">
-<h3>Upcoming Events</h3>
-<p>GeneriCon will be held June 20th of this year. They’ll have an amazing line up of generic speakers and topics, so be sure not to miss out!</p>
-</section>
-</aside>
-</section>
-<section class="spotlight">
-<article class="latest news">
-<h2>Featured News</h2>
-<h3>Generic drugs keep gaining market share</h3>
-<p>Generic drugs, such as Marzipan Imoximile made from the Harvey Cactus flower (shown above) continue to gain in market share.</p>
-</article>
-<article class="latest item">
-<h2>Generic item of the week</h2>
-<h3>Generic “city at night” shots remain popular</h3>
-<p>For many ads and commercials, generic “city at night shots” remain amazingly effective. Come find out which cities offer the most generic shots.</p>
-</article>
-<article class="latest facts">
-<h2>Generic facts</h2>
-<h3>Beach yoga no more effective than generic yoga</h3>
-<p>Despite the claims of many self-help gurus, beach yoga is no more effective at finding inner peace than generic yoga. An online study shows more.</p>
-</article>
-</section>
+
+
+
 <footer role="contentinfo">
-<p>&copy; 2012 James Williamson | but honestly just use any of the code as you see fit. I'm really putting this here just so I have a footer.</p>
+<p>&copy; 2016 Finance eBooks</p>
 </footer>
 </body>
 </html>

@@ -71,6 +71,8 @@ TEMPLATES = [
     },
 ]
 
+
+
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',

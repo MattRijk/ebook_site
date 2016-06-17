@@ -7,15 +7,25 @@ from django.views.generic.base import View
 from django.views.generic.edit import FormView
 from books.forms import DataForm
 from django.utils.text import slugify
+from django.core.context_processors import csrf
 from .forms import SearchForm
 from haystack.query import SearchQuerySet
-from pip._vendor.requests.api import request
+
+# def book_list(request):
+#     query = Book.objects.all()
+#     args = {}
+#     args.update(csrf(request))
+#     args['book_list'] = query
+#     return render(request, 'books/index.html', args)
 
 
-def book_search(request):
+def book_list(request):
+    
     cd = None
     results = None
     total_results = None
+    
+    query = Book.objects.all()
     
     form = SearchForm()
     if 'query' in request.GET:
@@ -24,45 +34,29 @@ def book_search(request):
             cd = form.cleaned_data
             results = SearchQuerySet().models(Book).filter(content=cd['query']).load_all()
             # count total results
-            total_results = results.count()
-    return render(request, 'books/search.html', {'form': form,
-                                                 'cd': cd,
-                                                 'results': results,
-   
-                                                 
-                                                 'total_results': total_results})
+            total_results = results.count() 
     
-class BookListView(ListView):
+    args = {}
+    args.update(csrf(request))
+    args['book_list'] = query
+    args['form'] = form
+    args['cd'] = cd
+    args['results'] = results
+    args['total_results'] = total_results
     
-    def get(self, request, *args, **kwargs):
-        cd = None
-        results = None
-        total_results = None
-        
-        queryset = Book.objects.all()
-        
-        form = SearchForm()
-        if 'query' in request.GET:
-            form = SearchForm(request.GET)
-            if form.is_valid():
-                cd = form.cleaned_data
-                results = SearchQuerySet().models(Book).filter(content=cd['query']).load_all()
-                # count total results
-                total_results = results.count()
-        return render(request, 'books/search.html', {'books_list': queryset, 
-                                                     'form': form,
-                                                     'cd': cd,
-                                                     'results': results,
-                                                     'total_results': total_results})
+  
+    return render(request, 'books/index.html', args)
+
 
 # class BookListView(ListView):
 #     Model = Book
 #     template_name = 'books/index.html'
 #     context_object_name = 'books_list'
-#     
+#      
 #     def get_queryset(self):
 #         return Book.objects.all()
- 
+
+
 
 
 class BookDetailView(DetailView): 

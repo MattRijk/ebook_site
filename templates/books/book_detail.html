@@ -4,22 +4,27 @@
 
 {% block content %}
 
+<div class="">
 <p>{{ book.title }}</p>
+<img class="Media-figure" src="{{ book.image.url }}" alt="" width="100" height="100" >
+<p></p>
 {% comment %}  AUTHORS {% endcomment %}
+<p>By:
 {% for author in book.authors.all %}
-{{ author.name }},&nbsp
+{{ author.name }} &nbsp 
 {#<a href="{% url 'books:author_list' author.slug %}">{{ author.slug }}</a>#}
-{% endfor %}
+{% endfor %}</p>
 
+<p>Published: {{ book.year }}</p>
+<p>Pages: {{ book.pages }}</p>
+<p>Filesize: {{ book.filesize }}</p>
 
-<h5>Published: {{ book.year }}</h5>
-<h5>Pages: {{ book.pages }}</h5>
-<h5>Filesize: {{ book.filesize }}</h5>
+<!-- <p><a href="{{ book.pdf.url }}" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">download pdf</a><p>
+-->
+<button><a href="{{ book.pdf.url }}" target="_blank">Download PDF</a></button>
 <p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
+
+<div>
 
 
 

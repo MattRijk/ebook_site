@@ -193,10 +193,14 @@ header h2 {
 	padding-bottom: .25em;
 	border-bottom: 2px solid #666;
 }
+/*.featured p {
+	font-size: 1.25em;
+	line-height: 1.6;
+}*/
 
 .featured p {
-    font-size: 1em;
-    line-height: 0.6;
+    font-size: .95em;
+    line-height: .6em;
 }
 .featured .teaser {
 	margin-bottom: 0;
