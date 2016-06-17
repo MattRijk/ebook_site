@@ -3,20 +3,13 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic.detail import DetailView
 from books.models import Book, Author, Category
 from django.views.generic.list import ListView
-from django.views.generic.base import View
-from django.views.generic.edit import FormView
+from django.views.generic import FormView
 from books.forms import DataForm
 from django.utils.text import slugify
 from django.core.context_processors import csrf
 from .forms import SearchForm
 from haystack.query import SearchQuerySet
 
-# def book_list(request):
-#     query = Book.objects.all()
-#     args = {}
-#     args.update(csrf(request))
-#     args['book_list'] = query
-#     return render(request, 'books/index.html', args)
 
 
 def book_list(request):
@@ -46,16 +39,6 @@ def book_list(request):
     
   
     return render(request, 'books/index.html', args)
-
-
-# class BookListView(ListView):
-#     Model = Book
-#     template_name = 'books/index.html'
-#     context_object_name = 'books_list'
-#      
-#     def get_queryset(self):
-#         return Book.objects.all()
-
 
 
 
