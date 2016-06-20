@@ -12,3 +12,19 @@
   flex: 1;
   margin-top: 15px;
 }
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+	height: 30px;
+	width: 130px;
+	color: white;
+	margin-top: 5px;
+}
+
+
+form { display: inline; }

@@ -19,9 +19,11 @@
 <p>Pages: {{ book.pages }}</p>
 <p>Filesize: {{ book.filesize }}</p>
 
-<!-- <p><a href="{{ book.pdf.url }}" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">download pdf</a><p>
--->
-<button><a href="{{ book.pdf.url }}" target="_blank">Download PDF</a></button>
+
+<a href="{{ book.pdf.url }}" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;" class="button">Download</a>
+
+
+{#<button><a href="{{ book.pdf.url }}" target="_blank" download>Download PDF</a></button>#}
 <p></p>
 
 <div>

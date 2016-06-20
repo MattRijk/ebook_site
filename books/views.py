@@ -9,6 +9,7 @@ from django.utils.text import slugify
 from django.core.context_processors import csrf
 from .forms import SearchForm
 from haystack.query import SearchQuerySet
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 
 
@@ -18,8 +19,21 @@ def book_list(request):
     results = None
     total_results = None
     
-    query = Book.objects.all()
+    query_list = Book.objects.all()
     
+    paginator = Paginator(query_list, 4)
+    
+    try:
+        page = int(request.GET.get('page', '1'))
+    except:
+        page = 1
+        
+    try:
+        books = paginator.page(page)
+    except(EmptyPage, InvalidPage):
+        books = paginator.page(paginator.num_pages)
+
+    # search 
     form = SearchForm()
     if 'query' in request.GET:
         form = SearchForm(request.GET)
@@ -31,7 +45,7 @@ def book_list(request):
     
     args = {}
     args.update(csrf(request))
-    args['book_list'] = query
+    args['book_list'] = books
     args['form'] = form
     args['cd'] = cd
     args['results'] = results

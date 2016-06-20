@@ -55,6 +55,7 @@
 <section role="main" class="main">
 <aside role="complementary" class="sidebar">
 <section class="newsletter cf">
+
 <form action="." method="get">
     {{ form.as_p }}
     <input type="submit" class="button" value="Go" name="submit">
@@ -85,6 +86,21 @@
 </div>
 <hr>
 {% endfor %}
+
+<span class="step-links">
+        {% if book_list.has_previous %}
+            <a href="?page={{ book_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ book_list.number }} of {{ book_list.paginator.num_pages }}.
+        </span>
+
+        {% if book_list.has_next %}
+            <a href="?page={{ book_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
 </article>
 </section>
 {% endif %}
