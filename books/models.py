@@ -24,9 +24,9 @@ class Book(models.Model):
     pages = models.CharField(max_length=10)
     filesize = models.CharField(max_length=20)
     file_format = models.CharField(max_length=20)
-    pdf = models.FileField(upload_to='pdfs/%Y/%m/%d')
+    pdf = models.FileField(upload_to='pdfs/')
 #     image = models.FileField(upload_to='images/')
-    image = models.FileField(upload_to='images/%Y/%m/%d')
+    image = models.FileField(upload_to='images/')
     authors = models.ManyToManyField(Author, through='BookHasAuthor')
     published = models.DateTimeField(default=timezone.now)
     

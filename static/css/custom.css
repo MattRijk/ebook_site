@@ -1,3 +1,4 @@
+
 .Media {
   display: flex;
   align-items: flex-start;
@@ -28,3 +29,7 @@ a.button {
 
 
 form { display: inline; }
+
+#title {
+	font-size: 25px;
+}

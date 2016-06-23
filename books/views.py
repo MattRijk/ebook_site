@@ -120,9 +120,9 @@ class CategoryListView(ListView):
 
 
 class DataFormView(FormView):
-    template_name = 'help/csv_upload.html'
+    template_name = 'upload_helper/csv_upload.html'
     form_class = DataForm
-    success_url = 'books/book_list.html'
+    success_url = '/'
 
     def form_valid(self, form):
         form.process_data()

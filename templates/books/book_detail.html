@@ -5,8 +5,11 @@
 {% block content %}
 
 <div class="">
-<p>{{ book.title }}</p>
-<img class="Media-figure" src="{{ book.image.url }}" alt="" width="100" height="100" >
+
+
+<img class="Media-figure" src="{{ book.image.url }}" alt="" width="200" height="200" label>
+<h5 id='title'><strong>{{ book.title }}</strong></h5>
+</img>
 <p></p>
 {% comment %}  AUTHORS {% endcomment %}
 <p>By:
@@ -14,11 +17,12 @@
 {{ author.name }} &nbsp 
 {#<a href="{% url 'books:author_list' author.slug %}">{{ author.slug }}</a>#}
 {% endfor %}</p>
-
 <p>Published: {{ book.year }}</p>
+
 <p>Pages: {{ book.pages }}</p>
 <p>Filesize: {{ book.filesize }}</p>
-
+<p>File Format: {{ book.file_format }}</p>
+<p>Filesize: {{ book.filesize }}</p>
 
 <a href="{{ book.pdf.url }}" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;" class="button">Download</a>
 
@@ -26,7 +30,37 @@
 {#<button><a href="{{ book.pdf.url }}" target="_blank" download>Download PDF</a></button>#}
 <p></p>
 
-<div>
+</div>
+
+{#<div class="Media">#}
+{# <a href="{{ book.get_absolute_url }}">#}
+{#  <img class="Media-figure" src="{{ book.image.url }}" alt="" width="200" height="200" >#}
+{#  <a href="{{ book.pdf.url }}" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;" class="button">Download</a>#}
+{#  </img>#}
+{# </a>#}
+{#<div class="Media-body">#}
+{#	  <p class="">{{ book.title }}</p>#}
+	  
+{#	  <p class="">By:#}
+{#	  {% for author in book.authors.all %}#}
+{#	  <a href={% url "books:author_view" author.slug %}>{{ author.name }}</a>&nbsp #}
+{#	  {% endfor %}#}
+{#	  </p>#}
+	 
+{#	  <p>Published: {{ book.year }}</p>#}
+
+{#<p>Pages: {{ book.pages }}</p>#}
+{#</div>#}
+{#<div class="Media-body">#}
+{#<p>Filesize: {{ book.filesize }}</p>#}
+{#<p>File Format: {{ book.file_format }}</p>#}
+{#<p>Filesize: {{ book.filesize }}</p>#}
+
+{#</div>#}
+
+{#</div>#}
+
+{#<hr>#}
 
 
 
