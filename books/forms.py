@@ -20,16 +20,21 @@ class DataForm(forms.Form):
         for cursor in reader:
             a1 = Author.objects.create(name=cursor['name1'])
             a2 = Author.objects.create(name=cursor['name2'])
+            a3 = Author.objects.create(name=cursor['name3'])
+            a4 = Author.objects.create(name=cursor['name4'])
+            
             
             c = Category.objects.get(slug=cursor['slug'])
+
             now = timezone.now()
         
             b1 = Book.objects.create(title=cursor['title'], year=cursor['year'], pages=cursor['pages'], filesize=cursor['filesize'], file_format=cursor['file_format'], pdf=File(open(cursor['pdf'], mode="rb")), image=File(open(cursor['image'], mode="rb")), published=now)  
-            
-            
+                      
             BookHasAuthor.objects.create(author=a1, book=b1)
             BookHasAuthor.objects.create(author=a2, book=b1)
-            
+             
+            BookHasAuthor.objects.create(author=a3, book=b1)
+            BookHasAuthor.objects.create(author=a4, book=b1)           
    
             BookHasCategory.objects.create(book=b1, category=c)
                
