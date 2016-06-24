@@ -5,7 +5,7 @@
 <title>CSV Upload</title>
 </head>
 <body>
-<h1>upload</h1>
+<h1>upload csv</h1>
 <form action="{% url "books:data_upload" %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

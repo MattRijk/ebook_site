@@ -14,7 +14,7 @@
 {% comment %}  AUTHORS {% endcomment %}
 <p>By:
 {% for author in book.authors.all %}
-{{ author.name }} &nbsp 
+{{ author.name }} &nbsp  
 {#<a href="{% url 'books:author_list' author.slug %}">{{ author.slug }}</a>#}
 {% endfor %}</p>
 <p>Published: {{ book.year }}</p>
