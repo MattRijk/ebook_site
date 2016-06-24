@@ -19,8 +19,6 @@
 {% for result in results %}
 {% with book=result.object %}
 
-{#<h4><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h4>#}
-
 <div class="Media">
  <a href="{{ book.get_absolute_url }}">
   <img class="Media-figure" src="{{ book.image.url }}" alt="" width="100" height="100" >
@@ -89,7 +87,7 @@
 	  {% endfor %}
 	  </p>
 	 
-	  <p>{{ book.year }}</p>
+	  <p>Published: {{ book.year }}</p>
  </div>
 </div>
 <hr>

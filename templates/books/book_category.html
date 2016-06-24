@@ -12,14 +12,12 @@
 	  <p class="Media-title">
 	  <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
 	  </p>
-	  <p class="Media-title">
+	  <p class="Media-title">By:
 	  {% for author in book.authors.all %}
-	  
-	  <a href={% url "books:author_view" author.slug %}>{{ author.name }}</a>&nbsp 
-	  
+	  <a href={% url "books:author_view" author.slug %}>{{ author.name }}</a>&nbsp 	  
 	  {% endfor %}
 	  </p>
-	  <p>{{ book.year }}</p>
+	  <p>Published: {{ book.year }}</p>
  </div>
 </div>
 <hr>

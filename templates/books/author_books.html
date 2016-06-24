@@ -16,7 +16,7 @@
 	  <p class="Media-title">
 	  {% for author in book.authors.all %}
 	  
-	  <a href={% url "books:author_view" author.slug %}>{{ author.name }}</a>&nbsp 
+	  <p>{{ author.name }}</p>&nbsp 
 	  
 	  {% endfor %}
 	  </p>

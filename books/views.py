@@ -21,7 +21,7 @@ def book_list(request):
     
     query_list = Book.objects.all()
     
-    paginator = Paginator(query_list, 4)
+    paginator = Paginator(query_list, 15)
     
     try:
         page = int(request.GET.get('page', '1'))
