@@ -1,2 +1,2 @@
 # finance-ebooks-site
-a site to host ebooks 
+a library site of e-books on finance written in django 
