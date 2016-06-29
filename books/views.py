@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.detail import DetailView
 from books.models import Book, Author, Category
@@ -15,9 +15,9 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 def book_list(request):
     
-    cd = None
-    results = None
-    total_results = None
+#     cd = None
+#     results = None
+#     total_results = None
     
     query_list = Book.objects.all()
     
@@ -34,27 +34,39 @@ def book_list(request):
         books = paginator.page(paginator.num_pages)
 
     # search 
-    form = SearchForm()
-    if 'query' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            cd = form.cleaned_data
-            results = SearchQuerySet().models(Book).filter(content=cd['query']).load_all()
-            # count total results
-            total_results = results.count() 
+#     form = SearchForm()
+#     if 'query' in request.GET:
+#         form = SearchForm(request.GET)
+#         if form.is_valid():
+#             cd = form.cleaned_data
+#             results = SearchQuerySet().models(Book).filter(content=cd['query']).load_all()
+#             # count total results
+#             total_results = results.count() 
+
     
     args = {}
     args.update(csrf(request))
     args['book_list'] = books
-    args['form'] = form
-    args['cd'] = cd
-    args['results'] = results
-    args['total_results'] = total_results
+    
+#     args['form'] = form
+#     args['cd'] = cd
+#     args['results'] = results
+#     args['total_results'] = total_results
     
   
     return render(request, 'books/index.html', args)
 
-
+def search_titles(request): 
+    if request.method == 'POST':
+        search_text = request.POST['search_text']    
+    else:
+        search_text = ''
+         
+    books = Book.objects.filter(title__contains=search_text)[:8]
+     
+#     return render_to_response('books/ajax_search.html', { 'books': books })
+    return render(request, 'books/ajax_search.html', { 'books': books })
+    
 
 class BookDetailView(DetailView): 
     Model = Book

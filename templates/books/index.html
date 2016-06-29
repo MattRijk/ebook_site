@@ -10,66 +10,77 @@
 <hr>
 </header>
 
-<!-- Results  --> 
-{% if "query" in request.GET %}
-<p>Books containing "{{ cd.query }}"</p>
-<p>Found {{ total_results }} result{{ total_results|pluralize }}</p>
-<p></p>
+{#<!-- Results  --> #}
+{#{% if "query" in request.GET %}#}
+{#<p>Books containing "{{ cd.query }}"</p>#}
+{#<p>Found {{ total_results }} result{{ total_results|pluralize }}</p>#}
+{#<p></p>#}
 
-{% for result in results %}
-{% with book=result.object %}
+{#{% for result in results %}#}
+{#{% with book=result.object %}#}
 
-<div class="Media">
- <a href="{{ book.get_absolute_url }}">
-  <img class="Media-figure" src="{{ book.image.url }}" alt="" width="100" height="100" >
- </a>
-  <div class="">
-	  <p class="">
-	  <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
-	  </p>	  
-	  <p class="">By:
-	  {% for author in book.authors.all %}
-	  <a href={% url "books:author_view" author.slug %}>{{ author.name }}</a>&nbsp 
-	  {% endfor %}
-	  </p>
-	  <p>Year: {{ book.year }}</p>
- </div>
-</div>
-<hr>
+{#<div class="Media">#}
+{# <a href="{{ book.get_absolute_url }}">#}
+{#  <img class="Media-figure" src="{{ book.image.url }}" alt="" width="100" height="100" >#}
+{# </a>#}
+{#  <div class="">#}
+{#	  <p class="">#}
+{#	  <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>#}
+{#	  </p>	  #}
+{#	  <p class="">By:#}
+{#	  {% for author in book.authors.all %}#}
+{#	  <a href={% url "books:author_view" author.slug %}>{{ author.name }}</a>&nbsp #}
+{#	  {% endfor %}#}
+{#	  </p>#}
+{#	  <p>Year: {{ book.year }}</p>#}
+{# </div>#}
+{#</div>#}
+{#<hr>#}
 
-{% endwith %}
-{% empty %}
-<p>There are no results for your query.</p>
-{% endfor %}
+{#{% endwith %}#}
+{#{% empty %}#}
+{#<p>There are no results for your query.</p>#}
+{#{% endfor %}#}
 <!-- result end -->
 
 <!-- search again -->
-<p><a href="{% url "home" %}">Search again</a></p>
+{#<p><a href="{% url "home" %}">Search again</a></p>#}
 
 
-{% else %}
+{#{% else %}#}
 
 <!-- Main List Page --> 
 <!-- search form -->
+{#<section role="main" class="main">#}
+{#<aside role="complementary" class="sidebar">#}
+{#<section class="newsletter cf">#}
+<!-- Solr Search Form-->
+{#<form action="." method="get">{% csrf_token %}#}
+{#    {{ form.as_p }}#}
+{#    <input type="submit" class="button" value="Go" name="submit">#}
+{#</form>#}
+{#</section>#}
+
+
 <section role="main" class="main">
+<!-- Sidebar-->
 <aside role="complementary" class="sidebar">
 <section class="newsletter cf">
+<!-- JQuery-Ajax Search Form-->
+<h3>Search</h3>
+{% csrf_token %}
+<input type="text" id="search" name="search" />
 
-<form action="." method="get">
-    {{ form.as_p }}
-    <input type="submit" class="button" value="Go" name="submit">
-</form>
-</section>
+<ul id="search-results">
+
+</ul>
 
 
-<section role="main" class="main">
-<aside role="complementary" class="sidebar">
-<section class="newsletter cf">
 </section>
 </aside>
 
 
-
+<!-- Main Content-->
 <article class="featured">
 {% for book in book_list %}
 <div class="Media">
@@ -109,7 +120,7 @@
 </div>
 </article>
 </section>
-{% endif %}
+{#{% endif %}#}
 
 
  {% endblock %}
